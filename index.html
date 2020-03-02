@@ -1,0 +1,139 @@
+<html><head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet">
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row 1">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minus1" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="noOfProduct1" type="text" class="form-control text-center" value="1">
+                           <button id="plus1" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="price1">0</span></h5>
+                        <img id="clearButton1" src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row 2">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minus2" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="noOfProduct2" type="text" class="form-control text-center" value="1">
+                           <button id="plus2" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="price2">0</span></h5>
+                        <img id="clearButton2" src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subtotal">0</span></h5>
+                        <h5>$0</h5>
+                        <h5>$ <span id="total">0</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+
+   <script>
+      const plus1 = document.getElementById("plus1");
+      
+      plus1.addEventListener("click",function(){
+         updatePrice("noOfProduct1","price1",1,1219); 
+      })
+      minus1.addEventListener("click",function(){
+         updatePrice("noOfProduct1","price1",-1,1219); 
+      })
+      clearButton1.addEventListener("click",function(){
+         clearProduct("noOfProduct1","price1");
+      })
+      plus2.addEventListener("click",function(){
+         updatePrice("noOfProduct2","price2",1,59); 
+      })
+      minus2.addEventListener("click",function(){
+         updatePrice("noOfProduct2","price2",-1,59); 
+      })
+      clearButton2.addEventListener("click",function(){
+         clearProduct("noOfProduct2","price2");
+      })
+      
+
+      function updatePrice(noOfProductId,priceId,sign,unitPrice){
+         const noOfProduct = getInputNumber(noOfProductId);
+         const productPrice = getSpanNumber(priceId);
+         const subtotal = getSpanNumber("subtotal");
+         
+         
+         document.getElementById(noOfProductId).value=noOfProduct + sign;
+         document.getElementById(priceId).innerText=productPrice + (sign*unitPrice);
+         document.getElementById("subtotal").innerText=subtotal + (sign*unitPrice);
+         document.getElementById("total").innerText=subtotal + (sign*unitPrice);
+      }
+      function getInputNumber(id){
+         const String = document.getElementById(id).value;
+         const number = parseFloat(String);
+         return number;
+      }
+
+      function getSpanNumber(id){
+         const String = document.getElementById(id).innerText;
+         const number = parseFloat(String);
+         return number;
+      }
+      function clearProduct(noOfProductId,priceId){
+         const noOfProduct = getInputNumber(noOfProductId);
+         const productPrice = getSpanNumber(priceId);
+         const subtotal = getSpanNumber("subtotal");
+
+         document.getElementById(noOfProductId).value=0;
+         document.getElementById(priceId).innerText=0;
+         document.getElementById("subtotal").innerText=subtotal - productPrice;
+         document.getElementById("total").innerText=subtotal - productPrice;
+      }
+     
+   </script>
+
+
+</body>
+</html>
